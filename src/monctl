@@ -5,13 +5,6 @@
 
 # Restore: server names, instrument lists, wait_time
 
-# *** CAUTION ***
-#     instrument run lists contain all instruments
-#     add instrument list(s) as desired
-#     (see monctl_dev branch for custom instrument lists)
-# *** CAUTION ***
-
-# Execute on an RTI ops or test server as the rti user
 #   SVRK1 (k1 instruments), SVRK2 (k2 instruments), or SVRBLD (k0, k1 and k2 instruments combined)
 #   servers are auto-detected by the script by hostname
 
