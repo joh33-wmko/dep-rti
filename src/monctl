@@ -3,6 +3,8 @@
 # Monitor Controller - Routine Mode (this script)
 #                    - Release Mode (TBD - in dev)
 
+# Restore: server names, instrument lists, wait_time
+
 # Execute on an RTI ops or test server as the rti user
 #   SVRK1 (k1 instruments), SVRK2 (k2 instruments), or SVRBLD (k0, k1 and k2 instruments combined)
 #   servers are auto-detected by the script by hostname
