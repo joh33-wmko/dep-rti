@@ -4,17 +4,7 @@ This is the class to handle all the GUIDER specific attributes
 
 import instrument
 import datetime as dt
-import numpy as np
-from astropy.io import fits
 import os
-import re
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import math
-from skimage import exposure
-import traceback
-import glob
-from pathlib import Path
 import shutil
 
 import logging
@@ -139,42 +129,15 @@ class Guider(instrument.Instrument):
         Queries the schedule API to return ToO, twilight, and classical programs.
         Combines the results into a single list of dictionaries.
         '''
-        api = self.config['API']['TELAPI']
-        too = self.get_api_data(f'{api}cmd=getToORequest&date={self.hstdate}')
+        api = self.config['API']['MAIN']
         sched = []
-        for entry in too:
-            if entry['Instrument'] != instr or \
-               entry['StartTimeActual'] == None or \
-               entry['DurationActual'] == None:
-                continue
-            proj = {}
-            proj['Type'] = 'ToO'
-            proj['Date'] = entry['ObsDate']
-            for key in ['TelNr','Instrument','ProjCode']:
-                proj[key] = entry[key]
-            proj['StartTime'],proj['EndTime'] = \
-                self.convert_to_start_end(self.utdate, entry['StartTimeActual'], entry['DurationActual'])
-            sched.append(proj)
 
-        url = api.replace('telSchedule','twilightApi')
-        twilight = self.get_api_data(f'{url}cmd=twilight_select&utdate={self.utdate}')
-        for entry in twilight:
-            if instr not in entry['Instr']:
-                continue
-            proj = {}
-            proj['Type'] = 'Twilight'
-            proj['Date'] = self.hstdate
-            for key in ['TelNr','Instr','ProjCode']:
-                proj[key] = entry[key]
-            proj['StartTime'],proj['EndTime'] = \
-                self.convert_to_start_end(self.utdate, entry['StartTime'], entry['Duration'])
-            sched.append(proj)
-
-        classical = self.get_api_data(f'{api}cmd=getSchedule&date={self.hstdate}&instr={instr.replace("+", "%2b")}')
+        # The new getSchedule will return ToO, twilight, and classical programs
+        classical = self.get_api_data(f'{api}/schedule/getSchedule?date={self.hstdate}&instr={instr.replace("+", "%2b")}')
         for entry in classical:
             proj = {}
             proj['Type'] = 'Classical'
-            for key in ['Date','TelNr','Instrument','ProjCode','StartTime','EndTime']:
+            for key in ['Date','TelNr','Instrument','ProjCode','StartTime','EndTime','ObsType']:
                 proj[key] = entry[key]
             sched.append(proj)
 
@@ -215,7 +178,7 @@ class Guider(instrument.Instrument):
                 if ut >= start and ut <= end:
                     log.warning(f"Assigning PROGID by schedule UTC: {entry['ProjCode']}")
                     return entry['ProjCode']
-                if entry['Type'] == 'Classical':
+                if entry['ObsType'] == 'Classical':
                     if num == 0 and ut < start:
                         log.warning(f"Assigning PROGID by first scheduled entry: {entry['ProjCode']}")
                         return entry['ProjCode']

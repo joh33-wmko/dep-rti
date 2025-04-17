@@ -483,8 +483,8 @@ class Instrument(dep.DEP):
             splitNight = splitMap.index(splitLoc[0])
 
         #get schedule information
-        api = self.config['API']['TELAPI']
-        url = f"{api}cmd=getSchedule&date={self.hstdate}&telnr={self.telnr}&instr={self.instr}"
+        api = self.config['API']['MAIN']
+        url = f"{api}/schedule/getSchedule?date={self.hstdate}&telnr={self.telnr}&instr={self.instr}"
         log.info(f'checking schedule for PROGID: {url}')
         data = self.get_api_data(url)
         if data:
@@ -607,8 +607,8 @@ class Instrument(dep.DEP):
             propint = 18
         else:
             semid = self.get_semid()
-            api = self.config.get('API', {}).get('PROPAPI')
-            url = api + 'ktn='+semid+'&cmd=getApprovedPP&json=True'
+            api = self.config.get('API', {}).get('MAIN')
+            url = api + '/proposals/getApprovedPP?ktn='+semid
             data = self.get_api_data(url)
             if not data or not data.get('success') or data.get('data') == None:
                 if not progid.startswith('E'):
@@ -656,13 +656,13 @@ class Instrument(dep.DEP):
 
     def is_daytime(self, utc):
         """Is the UTC time during the day?"""
-        url = f"{self.config['API']['METAPI']}date={self.utdate}"
-        suntimes = self.get_api_data(url, getOne=True)
+        url = f"{self.config['API']['MAIN']}/schedule/getTwilightData?date={self.utdate}"
+        suntimes = self.get_api_data(url)
         sunrise = suntimes['sunrise']
         sunset  = suntimes['sunset']
         tm         = dt.datetime.strptime(utc,     '%H:%M:%S.%f').time()
-        sunset_tm  = dt.datetime.strptime(sunset,  '%H:%M').time()
-        sunrise_tm = dt.datetime.strptime(sunrise, '%H:%M').time()
+        sunset_tm  = dt.datetime.strptime(sunset,  '%H:%M:%S').time()
+        sunrise_tm = dt.datetime.strptime(sunrise, '%H:%M:%S').time()
         is_daytime = (tm < sunset_tm or tm > sunrise_tm)
         return is_daytime
 
@@ -730,7 +730,7 @@ class Instrument(dep.DEP):
     def get_oa(self, hstdate, telnr):
         """Gets OA value from API for given date and telnr."""
 
-        url = f"{self.config['API']['TELAPI']}cmd=getNightStaff&date={hstdate}&telnr={telnr}"
+        url = f"{self.config['API']['MAIN']}/employee/getNightStaff?date={hstdate}&telnr={telnr}"
         log.info(f'retrieving night staff info: {url}')
         data = self.get_api_data(url)
         oa = 'None'
@@ -810,7 +810,7 @@ class Instrument(dep.DEP):
         """
         Gets telescope number for instrument via API
         """
-        url = f"{self.config['API']['TELAPI']}cmd=getTelnr&instr={self.instr.upper()}"
+        url = f"{self.config['API']['MAIN']}/schedule/getTelnr?instr={self.instr.upper()}"
         data = self.get_api_data(url, getOne=True)
         self.telnr = int(data['TelNr'])
         if self.telnr not in [1, 2]:

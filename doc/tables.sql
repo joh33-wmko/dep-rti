@@ -95,6 +95,15 @@ CREATE TABLE IF NOT EXISTS `koa_summary` (
   `last_mod`      datetime      DEFAULT CURRENT_TIMESTAMP  COMMENT 'Time of last modification'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
+CREATE TABLE IF NOT EXISTS `koa_storage` (
+  `id`                    int(11)       NOT NULL  AUTO_INCREMENT PRIMARY KEY,
+  `instrument`            varchar(15)   DEFAULT NULL        COMMENT 'Instrument name',
+  `utdate`                date          DEFAULT NULL        COMMENT 'UT date of summary',
+  `storage_type`          varchar(15)   DEFAULT NULL        COMMENT 'Storage type [AWS, SharePoint, stage]',
+  `storage_location`      varchar(100)  DEFAULT NULL        COMMENT 'Storage location',
+  `last_mod`              datetime      DEFAULT CURRENT_TIMESTAMP  COMMENT 'Time of last modification'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
 CREATE TABLE IF NOT EXISTS `odap_queue` (
   `filename`       varchar(250) NOT NULL COMMENT 'File to send to ODAP',
   `koaid`          varchar(48)           COMMENT 'Unique KOA ID',

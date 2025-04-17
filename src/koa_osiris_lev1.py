@@ -349,8 +349,8 @@ def main():
 
     # Is OSIRIS scheduled for the night?  Get account being used.
     try:
-        url  = config['API']['TELAPI']
-        url = f'{url}cmd=getSchedule&date={tonight}&instr={instrument}'
+        url  = config['API']['MAIN']
+        url = f'{url}/schedule/getSchedule?date={tonight}&instr={instrument}'
         resp = requests.get(url)
         response = json.loads(resp.text)
         if len(response) == 0:
