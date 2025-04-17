@@ -46,41 +46,64 @@
 
 wait_secs=10   # ops
 
+
 ## ===== K1 Instrument Lists ===== ##
 # INSTRUMENT LISTS - to be fixed in later version
 # for now, supply custom run list where indicated for long term use
 
 # K1 L0/raw instrument lists
-k1InstList=( "guiderk1" "hires" "kpf" "lris_blue" "lris_red" "mosfire" "osiris_img" "osiris_spec" )   # required for count
+k1InstList=( "guiderk1" "hires" "kpf" "lris_blue" "lris_red" "mosfire" "osiris_img" "osiris_spec" )   # NO EDIT required for total count
 k1_base_list=${k1InstList[@]}
 k1_base_count=${#k1InstList[@]}
-#k1InstList=( " " " ")   # customized instrument list(s)
+
+# ///// K1 customized instrument list(s) here: \\\\\
+#k1InstList=( "guiderk1" "hires" "lris_blue" "lris_red" "mosfire" "osiris_img" "osiris_spec" )   # no KPF
+#k1InstList=( "kpf" )                                                                            # KPF only
+# \\\\\ K1 customized instrument list(s) end: /////
+
 k1_run_list=${k1InstList[@]}
 k1_run_count=${#k1InstList[@]}
 
 # K1 DRP instrument lists
-k1InstDrpList=( "kpf" "mosfire" "osiris" )   # required for count
+k1InstDrpList=( "kpf" "mosfire" "osiris" )   #  NO EDIT required for total count
 k1_base_drp_list=${k1InstDrpList[@]}
 k1_base_drp_count=${#k1InstDrpList[@]}
-#k1InstDrpList=( " " " ")   # customized drp instrument list(s)
+
+# ///// K1 DRP customized instrument list(s) here: \\\\\
+k1InstDrpList=( "mosfire" "osiris" )                       # no KPF DRP
+k1InstDrpList=( "kpf" )                                    # KPF DRP only
+# \\\\\ K1 DRP customized instrument list(s) end: /////
+
 k1_run_drp_list=${k1InstDrpList[@]}
 k1_run_drp_count=${#k1InstDrpList[@]}
+
 
 ## ===== K2 Instrument Lists ===== ##
 
 # K2 L0/raw instrument lists
-k2InstList=( "deimos_fcs" "deimos_spec" "esi" "guiderk2" "kcwi_blue" "kcwi_fcs" "kcwi_red" "nirc2_unp" "nirc2" "nires_img" "nires_spec" "nirspec_scam" "nirspec_spec" )   # required for count
+k2InstList=( "deimos_fcs" "deimos_spec" "esi" "guiderk2" "kcwi_blue" "kcwi_fcs" "kcwi_red" "nirc2_unp" "nirc2" "nires_img" "nires_spec" "nirspec_scam" "nirspec_spec" )   #  NO EDIT required for count
 k2_base_list=${k2InstList[@]}
 k2_base_count=${#k2InstList[@]}
-#k2InstList=( " " " ")   # customized instrument list(s)
+
+# ///// K2 customized instrument list(s) here: \\\\\
+#k2InstList=( "deimos_fcs" "deimos_spec" "guiderk2" "kcwi_blue" "kcwi_fcs" "kcwi_red" "nirc2_unp" "nirc2" "nires_img" "nires_spec" "nirspec_scam" "nirspec_spec" )   # no ESI
+#k2InstList=( "esi" )   # ESI only
+# \\\\\ K2 customized instrument list(s) end: /////
+
 k2_run_list=${k2InstList[@]}
 k2_run_count=${#k2InstList[@]}
 
 # K2 DRP instrument lists
-k2InstDrpList=( "kcwi" "deimos" "esi" "nirc2" "nires" )    # required for count
+k2InstDrpList=( "kcwi" "deimos" "esi" "nirc2" "nires" )   #  NO EDIT required for total count
 k2_base_drp_list=${k2InstDrpList[@]}
 k2_base_drp_count=${#k2InstDrpList[@]}
 #k2InstDrpList=( " " " ")   # customized drp instrument list(s)
+
+# ///// K2 DRP customized instrument list(s) here: \\\\\
+#k2InstDrpList=( "kcwi" "deimos" "nirc2" "nires" )        # no ESI drp
+#k2InstDrpList=( "esi" )                                  # ESI DRP only
+# \\\\\ K2 DRP customized instrument list(s) end: /////
+
 k2_run_drp_list=${k2InstDrpList[@]}
 k2_run_drp_count=${#k2InstDrpList[@]}
 
