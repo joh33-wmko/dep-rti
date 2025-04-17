@@ -133,3 +133,7 @@ dmypy.json
 /src/test/koadata_test
 *.bak
 /src/test/tmp/
+
+*.orig
+notes.txt
+.gitignore
