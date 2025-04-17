@@ -70,8 +70,8 @@ k1_base_drp_list=${k1InstDrpList[@]}
 k1_base_drp_count=${#k1InstDrpList[@]}
 
 # ///// K1 DRP customized instrument list(s) here: \\\\\
-k1InstDrpList=( "mosfire" "osiris" )                       # no KPF DRP
-k1InstDrpList=( "kpf" )                                    # KPF DRP only
+#k1InstDrpList=( "mosfire" "osiris" )                       # no KPF DRP
+#k1InstDrpList=( "kpf" )                                    # KPF DRP only
 # \\\\\ K1 DRP customized instrument list(s) end: /////
 
 k1_run_drp_list=${k1InstDrpList[@]}
