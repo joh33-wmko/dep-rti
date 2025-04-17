@@ -13,7 +13,7 @@ def envlog(telnr, dateObs, utc):
     '''
 
     #define archiver api url
-    hostname = f'k{telnr}dataserver'
+    hostname = f'k{telnr}epicsgateway'
     port = 17668
     url = f'http://{hostname}:{port}/retrieval/data/getData.json?'
 
