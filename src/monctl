@@ -97,7 +97,6 @@ k2_run_count=${#k2InstList[@]}
 k2InstDrpList=( "kcwi" "deimos" "esi" "nirc2" "nires" )   #  NO EDIT required for total count
 k2_base_drp_list=${k2InstDrpList[@]}
 k2_base_drp_count=${#k2InstDrpList[@]}
-#k2InstDrpList=( " " " ")   # customized drp instrument list(s)
 
 # ///// K2 DRP customized instrument list(s) here: \\\\\
 #k2InstDrpList=( "kcwi" "deimos" "nirc2" "nires" )        # no ESI drp
