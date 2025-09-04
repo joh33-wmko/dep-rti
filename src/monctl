@@ -1,11 +1,11 @@
 #! /usr/bin/bash
 
 # Monitor Controller - Routine Mode (this script)
-#                    - Release Mode (TBD - in dev)
+#                    - Release Mode (TBD)
 
-# Restore: server names, instrument lists, wait_time
+# Edit: server names, instrument lists, delay times, as desired
 
-#Execute on an RTI ops or test server as the rti user
+# Execute on an RTI ops or test server as the rti user
 #   SVRK1 (k1 instruments), SVRK2 (k2 instruments), or SVRBLD (k0, k1 and k2 instruments combined)
 #   servers are auto-detected by the script by hostname
 
@@ -37,12 +37,12 @@
 #   - convert to Python 3
 #     - use config.live.ini
 #     - track and report skipped instruments list
-#     - implement --list parameter ([all]|skip|only|other <instrument list>)
+#     - implement --list parameter ([all]|skip|limit|other <instrument list>)
 #   - optional refinements
 #     - graceful stop - track proc ids and wait, recheck until all processes have terminated
 #     - detect and report instrument/subsystem not available
 # - Release Mode (new and change/revert to existing):
-#   - one way permissions build server to ops server, may require two scrip
+#   - one way permissions build server to ops server, may require multiple/distributed scripts
 
 # ops RPC instruments monitor startup delay
 # ___ need K1 instrument delays, also?
