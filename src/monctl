@@ -44,7 +44,13 @@
 # - Release Mode (new and change/revert to existing):
 #   - one way permissions build server to ops server, may require two scrip
 
-wait_secs=10   # ops
+# ops RPC instruments monitor startup delay
+# ___ need K1 instrument delays, also?
+declare -i long_delay=120  # kcwi_blue, kcwi_red, nires* require 120 sec delay
+declare -i med_delay=60    # kcwi_fcs requires 60 sec delay
+declare -i short_delay=30  # DRPs require 30 sec delay
+declare -i def_delay=5
+declare -i wait_secs=${def_delay}
 
 
 ## ===== K1 Instrument Lists ===== ##
@@ -97,6 +103,7 @@ k2_run_count=${#k2InstList[@]}
 k2InstDrpList=( "kcwi" "deimos" "esi" "nirc2" "nires" )   #  NO EDIT required for total count
 k2_base_drp_list=${k2InstDrpList[@]}
 k2_base_drp_count=${#k2InstDrpList[@]}
+#k2InstDrpList=( " " " ")   # customized drp instrument list(s)
 
 # ///// K2 DRP customized instrument list(s) here: \\\\\
 k2InstDrpList=( "kcwi" "deimos" "nirc2" "nires" )        # no ESI drp
@@ -186,6 +193,7 @@ case $cmd in
       pid=`ps -ef | grep "monitor.py" | grep -v _drp | grep -v grep | grep -w ${instr} | awk -F " " '{print $2}'`
       echo "   Re/Started ${instr} monitor as PID=$pid"
       ps -ef | grep "monitor.py" | grep -v _drp | grep -v grep | grep -w ${instr}
+      if [[ ${instr} =~ ^(kcwi_blue|kcwi_red|nires) ]]; then wait_secs=${long_delay}; else wait_secs=${def_delay}; fi
       echo -e "   Sleeping ${wait_secs}...\n"
       sleep ${wait_secs}
     done
@@ -196,6 +204,7 @@ case $cmd in
       pid=`ps -ef | grep monitor_drp | grep -v grep | grep -w ${instr} | awk -F " " '{print $2}'`
       echo "   Started PID=$pid"
       ps -ef | grep monitor_drp | grep -v grep | grep -w ${instr}
+      if [[ ${instr} =~ ^(kcwi|nires|nirc2) ]]; then wait_secs=${med_delay}; else wait_secs=${short_delay}; fi
       echo -e "   Sleeping ${wait_secs}...\n"
       sleep ${wait_secs}
     done
@@ -210,6 +219,7 @@ case $cmd in
         pid=`ps -ef | grep "monitor.py" | grep -v _drp | grep -v grep | grep -w ${instr} | awk -F " " '{print $2}'`
         echo "   Started PID=${pid} monitor for ${instr} since it was not running"
         ps -ef | grep "monitor.py" | grep -v _drp | grep -v grep | grep -w ${instr}
+        if [[ ${instr} =~ ^(kcwi_blue|kcwi_red|nires) ]]; then wait_secs=${long_delay}; else wait_secs=${def_delay}; fi
         echo -e "   Sleeping ${wait_secs}...\n"
         sleep ${wait_secs}
       else
@@ -225,6 +235,7 @@ case $cmd in
         pid=`ps -ef | grep monitor_drp | grep -v grep | grep -w ${instr} | awk -F " " '{print $2}'`
         echo "   Started PID=${pid} DRP monitor for ${instr} since it was not running"
         ps -ef | grep monitor_drp | grep -v grep | grep -w ${instr}
+        if [[ ${instr} =~ ^(kcwi|nires|nirc2) ]]; then wait_secs=${med_delay}; else wait_secs=${short_delay}; fi
         echo -e "   Sleeping ${wait_secs}...\n"
         sleep ${wait_secs}
       else
