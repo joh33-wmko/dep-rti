@@ -99,7 +99,7 @@ k2_base_drp_list=${k2InstDrpList[@]}
 k2_base_drp_count=${#k2InstDrpList[@]}
 
 # ///// K2 DRP customized instrument list(s) here: \\\\\
-#k2InstDrpList=( "kcwi" "deimos" "nirc2" "nires" )        # no ESI drp
+#k2InstDrpList=( "kcwi" "deimos" "nirc2" "nires" )        # no ESI DRP
 #k2InstDrpList=( "esi" )                                  # ESI DRP only
 # \\\\\ K2 DRP customized instrument list(s) end: /////
 
