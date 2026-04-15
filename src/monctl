@@ -86,7 +86,7 @@ k2_base_list=${k2InstList[@]}
 k2_base_count=${#k2InstList[@]}
 
 # ///// K2 customized instrument list(s) here: \\\\\
-#k2InstList=( "deimos_fcs" "deimos_spec" "guiderk2" "kcwi_blue" "kcwi_fcs" "kcwi_red" "nirc2_unp" "nirc2" "nires_img" "nires_spec" "nirspec_scam" "nirspec_spec" )   # no ESI
+k2InstList=( "deimos_fcs" "deimos_spec" "guiderk2" "kcwi_blue" "kcwi_fcs" "kcwi_red" "nirc2_unp" "nirc2" "nires_img" "nires_spec" "nirspec_scam" "nirspec_spec" )   # no ESI
 #k2InstList=( "esi" )   # ESI only
 # \\\\\ K2 customized instrument list(s) end: /////
 
@@ -98,8 +98,7 @@ k2InstDrpList=( "kcwi" "deimos" "esi" "nirc2" "nires" )   #  NO EDIT required fo
 k2_base_drp_list=${k2InstDrpList[@]}
 k2_base_drp_count=${#k2InstDrpList[@]}
 
-# ///// K2 DRP customized instrument list(s) here: \\\\\
-#k2InstDrpList=( "kcwi" "deimos" "nirc2" "nires" )        # no ESI DRP
+k2InstDrpList=( "kcwi" "deimos" "nirc2" "nires" )        # no ESI drp
 #k2InstDrpList=( "esi" )                                  # ESI DRP only
 # \\\\\ K2 DRP customized instrument list(s) end: /////
 
